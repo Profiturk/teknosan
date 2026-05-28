@@ -1,0 +1,68 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  email     String?
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  sales     Sale[]
+
+  @@index([name])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  width       String?  // z.B. "57mm", "80mm"
+  length      String?  // z.B. "15m", "18m", "25m", "50m", "80m"
+  price       Float    @default(0)
+  stock       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  sales       Sale[]
+
+  @@index([name])
+}
+
+model Sale {
+  id             String   @id @default(cuid())
+  productName    String
+  productDetails String?
+  price          Float
+  quantity       Int      @default(1)
+  totalAmount    Float
+  saleDate       DateTime @default(now())
+  taxType        String?  // B=Brutto, N=Netto, N-B, B-N
+  paymentMethod  String?  // SEPA, Bar, etc.
+  customerId     String
+  customer       Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  productId      String?
+  product        Product? @relation(fields: [productId], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([saleDate])
+  @@index([productId])
+}

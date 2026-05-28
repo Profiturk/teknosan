@@ -1,0 +1,20 @@
+{
+  "components\\dashboard-content.tsx -> @/components/charts/monthly-chart": {
+    "id": "components\\dashboard-content.tsx -> @/components/charts/monthly-chart",
+    "files": [
+      "static/chunks/b20c84b391e5e73b.js"
+    ]
+  },
+  "components\\dashboard-content.tsx -> @/components/charts/product-chart": {
+    "id": "components\\dashboard-content.tsx -> @/components/charts/product-chart",
+    "files": [
+      "static/chunks/b0b714c2043da109.js"
+    ]
+  },
+  "components\\reports-content.tsx -> @/components/charts/report-bar-chart": {
+    "id": "components\\reports-content.tsx -> @/components/charts/report-bar-chart",
+    "files": [
+      "static/chunks/3465c32fb4f80738.js"
+    ]
+  }
+}
