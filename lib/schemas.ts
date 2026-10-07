@@ -28,3 +28,23 @@ export const ProductSchema = z.object({
   stock: z.number().int().min(0).default(0),
   active: z.boolean().default(true),
 });
+
+const dateInput = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, 'Ungültiges Datum')
+  .optional()
+  .nullable()
+  .or(z.literal(''));
+
+export const CashRegisterSchema = z.object({
+  customerId: z.string().min(1, 'Kunde ist erforderlich'),
+  model: z.string().min(1, 'Kassenmodell ist erforderlich').max(200),
+  label: z.string().max(200).optional().nullable(),
+  serialNumber: z.string().max(100).optional().nullable(),
+  tseSerial: z.string().max(200).optional().nullable(),
+  tseExpiry: dateInput,
+  installDate: dateInput,
+  elsterStatus: z.enum(['OFFEN', 'GEMELDET', 'ABGEMELDET']).default('OFFEN'),
+  elsterDate: dateInput,
+  notes: z.string().max(1000).optional().nullable(),
+});

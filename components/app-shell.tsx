@@ -13,12 +13,14 @@ import {
   X,
   Wrench,
   Package,
+  Receipt,
 } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/products', label: 'Produkte', icon: Package },
   { href: '/customers', label: 'Kunden', icon: Users },
+  { href: '/registers', label: 'Kassen & TSE', icon: Receipt },
   { href: '/sales', label: 'Verkäufe', icon: ShoppingCart },
   { href: '/reports', label: 'Berichte', icon: BarChart3 },
 ];

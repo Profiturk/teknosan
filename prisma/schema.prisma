@@ -25,6 +25,7 @@ model Customer {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   sales     Sale[]
+  registers CashRegister[]
 
   @@index([name])
 }
@@ -65,4 +66,26 @@ model Sale {
   @@index([customerId])
   @@index([saleDate])
   @@index([productId])
+}
+
+// Kassensystem eines Kunden inkl. TSE-Zertifikat und Finanzamt-Meldung (ELSTER)
+model CashRegister {
+  id            String    @id @default(cuid())
+  customerId    String
+  customer      Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  label         String?   // Standort / Bezeichnung, z.B. "Theke 1"
+  model         String    // z.B. "SAM4S SPS-2000"
+  serialNumber  String?
+  tseSerial     String?
+  tseExpiry     DateTime? // Ablaufdatum des TSE-Zertifikats
+  installDate   DateTime?
+  elsterStatus  String    @default("OFFEN") // OFFEN, GEMELDET, ABGEMELDET
+  elsterDate    DateTime?
+  notes         String?
+  reminderStage Int?      // zuletzt per E-Mail gemeldete Stufe (Tage): 90, 60, 30, 14, 7, 0
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([customerId])
+  @@index([tseExpiry])
 }

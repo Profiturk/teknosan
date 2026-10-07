@@ -129,7 +129,7 @@ export function CustomersContent() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Möchten Sie diesen Kunden wirklich löschen? Alle zugehörigen Verkäufe werden ebenfalls gelöscht.')) return;
+    if (!confirm('Möchten Sie diesen Kunden wirklich löschen? Alle zugehörigen Verkäufe und Kassen werden ebenfalls gelöscht.')) return;
     try {
       await fetch(`/api/customers/${id}`, { method: 'DELETE' });
       toast.success('Kunde gelöscht');
